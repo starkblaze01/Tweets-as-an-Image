@@ -1,7 +1,6 @@
 import * as htmlToImage from 'html-to-image';
-import { toPng } from 'html-to-image';
 
-var node = <div>Hello World</div>
+var node = '<div>Hello World</div>'
 
 
 module.exports = (req, res) => {
@@ -14,7 +13,7 @@ module.exports = (req, res) => {
         })
         .catch(function (error) {
             console.error('oops, something went wrong!', error);
-        });
+        });    
     // const { name = 'World' } = req.query
     // res.send(`Hello ${name}!`)
 }
