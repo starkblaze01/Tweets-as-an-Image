@@ -1,5 +1,5 @@
 import domtoimage from 'dom-to-image';
-var fs = require('fs');
+const fs = require('fs');
 
 var node = document.createElement('html');
 node.innerHTML('<div>Hello World</div>');
@@ -18,10 +18,7 @@ module.exports = (req, res) => {
     //         console.error('oops, something went wrong!', error);
     //     });    
     // const { name = 'World' } = req.query
-    fs.readFile('one.png', function (err, data) {
-        if (err) throw err;
-        res.writeHead(200, { 'Content-Type': 'image/jpeg' });
+    const contents = fs.readFileSync('one.png', { encoding: 'base64' });
         // res.send('Hello World');
-        res.send(data)
-    })
+    res.send(contents)
 }
