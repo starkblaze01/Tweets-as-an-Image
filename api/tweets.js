@@ -1,6 +1,7 @@
 import * as htmlToImage from 'html-to-image';
 
-var node = '<div>Hello World</div>'
+var node = document.createElement('html');
+node.innerHTML('<div>Hello World</div>');
 
 
 module.exports = (req, res) => {
