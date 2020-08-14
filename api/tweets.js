@@ -1,11 +1,10 @@
-import domtoimage from 'dom-to-image';
-const fs = require('fs');
-
-var node = document.createElement('html');
-node.innerHTML('<div>Hello World</div>');
+// import domtoimage from 'dom-to-image';
+// var node = document.createElement('html');
+// node.innerHTML('<div>Hello World</div>');
 
 
 module.exports = (req, res) => {
+    const fs = require('fs');
     // domtoimage.toPng(node)
     //     .then(function (dataUrl) {
     //         download(dataUrl, 'my-node.png');
