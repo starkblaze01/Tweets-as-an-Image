@@ -8,7 +8,7 @@ node.innerHTML('<div>Hello World</div>');
 module.exports = (req, res) => {
     domtoimage.toPng(node)
         .then(function (dataUrl) {
-            // download(dataUrl, 'my-node.png');
+            download(dataUrl, 'my-node.png');
             var img = new Image();
             img.src = dataUrl;
             document.body.appendChild(img);
