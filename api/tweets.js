@@ -22,6 +22,6 @@ module.exports = (req, res) => {
         if (err) throw err;
         res.writeHead(200, { 'Content-Type': 'image/jpeg' });
         // res.send('Hello World');
-        res.end(data)
+        res.send(data)
     })
 }
