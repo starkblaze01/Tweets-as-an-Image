@@ -1,7 +1,0 @@
-{
-    "functions": {
-        "api/tweets.js": {
-            "includeFiles": "api/**"
-        }
-    }
-}
