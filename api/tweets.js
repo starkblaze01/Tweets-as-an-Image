@@ -1,13 +1,12 @@
 const request = require('request');
-const { createCanvas, loadImage, registerFont } = require('canvas')
-registerFont('comicsans.ttf', { family: 'Comic Sans' })
+const { createCanvas, loadImage } = require('canvas')
 
 const canvas = createCanvas(500, 500)
 
 
 // Write "Awesome!"
 var ctx = canvas.getContext("2d");
-ctx.font = '12px "Comic Sans"'
+ctx.font = "30px Arial"
 ctx.fillText('Everyone hates this font :(', 250, 10)
 
 module.exports = (req, res) => {    
