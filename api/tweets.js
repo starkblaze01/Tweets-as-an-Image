@@ -11,7 +11,7 @@ ctx.fillText('Everyone hates this font :(', 250, 10)
 
 module.exports = (req, res) => {    
     // request({ url, encoding: null }, (err, resp, buffer) => {
-    res.send(canvas.toBuffer())
+    res.send(canvas.toDataURL())
     // });
     
 }
