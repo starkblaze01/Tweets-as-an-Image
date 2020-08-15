@@ -5,7 +5,7 @@
   "main": "tweets.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "now-build": "yum install cairo-devel libjpeg-turbo-devel giflib-devel pango-devel -y"
+    "now-build": "yum install cairo-devel libjpeg-turbo-devel giflib-devel pango-devel -y cp /lib64/libuuid.so.1 node_modules/canvas/build/Release/"
   },
   "repository": {
     "type": "git",
