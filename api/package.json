@@ -5,7 +5,7 @@
   "main": "tweets.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "now-build": "yum install libuuid-devel libmount-devel && cp /lib64/{libuuid,libmount,libblkid}.so.1 node_modules/canvas/build/Release/ && npm run build"
+    "now-build": "yum install libuuid-devel libmount-devel && cp /lib64/{libuuid,libmount,libblkid}.so.1 node_modules/canvas/build/Release/"
   },
   "repository": {
     "type": "git",
