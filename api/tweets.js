@@ -1,17 +1,17 @@
 const request = require('request');
-const { createCanvas, loadImage } = require('canvas')
+const Jimp = require('jimp')
+let image = new Jimp(256, 256)
 
-const canvas = createCanvas(500, 500)
-
-
-// Write "Awesome!"
-var ctx = canvas.getContext("2d");
-ctx.font = "30px Arial"
-ctx.fillText('Everyone hates this font :(', 250, 10)
+image.quality(60)
+Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(font => {
+    image.print(font, 10, 10, 'Hello \n world!');
+});
 
 module.exports = (req, res) => {    
     // request({ url, encoding: null }, (err, resp, buffer) => {
-    res.send(canvas.toBuffer())
+    image.getBuffer(Jimp.MIME_PNG, function (err, src) {
+        res.send(src)
+    })
     // });
     
 }

@@ -4,8 +4,7 @@
   "description": "API to get recent tweets as an image",
   "main": "tweets.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "now-build": "yum install cairo-devel libjpeg-turbo-devel giflib-devel pango-devel -y cp /lib64/libuuid.so.1 node_modules/canvas/build/Release/"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -18,7 +17,7 @@
   },
   "homepage": "https://github.com/starkblaze01/Tweets-as-an-Image#readme",
   "dependencies": {
-    "canvas": "^2.6.1",
+    "jimp": "^0.16.0",
     "request": "^2.88.2"
   }
 }
