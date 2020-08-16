@@ -10,7 +10,7 @@ const fs = require('fs');
 // });
 
 module.exports = (req, res) => {    
-    fs.readdir('./api/node_modules/@jimp/', function (err, files) {
+    fs.readdir('./api/node_modules/@jimp/plugin-print', function (err, files) {
         res.send(files)        
     })
     // request({ url, encoding: null }, (err, resp, buffer) => {
