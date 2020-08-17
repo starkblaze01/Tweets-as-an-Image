@@ -1,23 +1,18 @@
 {
-  "name": "tweets-as-an-image",
+  "name": "test-node",
   "version": "1.0.0",
-  "description": "API to get recent tweets as an image",
-  "main": "tweets.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/starkblaze01/Tweets-as-an-Image.git"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "author": "",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/starkblaze01/Tweets-as-an-Image/issues"
-  },
-  "homepage": "https://github.com/starkblaze01/Tweets-as-an-Image#readme",
   "dependencies": {
-    "jimp": "^0.16.0",
+    "canvas": "^2.6.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "request": "^2.88.2"
   }
 }
