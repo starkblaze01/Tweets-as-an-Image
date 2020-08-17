@@ -38,6 +38,6 @@ there's a rate limit over Twitter API usage which is 900 per user and 1500 per a
 ### Sample Query Image:
 <img src="https://tweets-as-an-image.herokuapp.com/?twitterHandle=starkblaze01&count=1"/>
 
-### Futute Work:
+### Future Work:
 - Make font and gradient customizable.
 - Better parsing of tweets' Text.
