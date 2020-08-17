@@ -1,13 +1,17 @@
 <div align="center">
+
 # Tweets as an Image
-To get recent tweets as an image of any user
+  
+_To get recent tweets as an image of any user_
 </div>
-<br/>
+
+---
 
 This project is created using [Canvas](https://www.npmjs.com/package/canvas) and [Twitter API](https://developer.twitter.com/en/docs)  for integration with [Github Profilinator](https://github.com/rishavanand/github-profilinator).
 
 <br/>
-APIs available for use:
+
+### APIs available for use:
 
 - `https://tweets-as-an-image.herokuapp.com/?twitterHandle={your_twitter_handle_here}`  (Default count value: 1)
 - `https://tweets-as-an-image.herokuapp.com/?twitterHandle={your_twitter_handle_here}&count={number_of_tweets_you_want_to_fecth}`
@@ -16,6 +20,7 @@ Replace `your_twitter_handle_here` and `number_of_tweets_you_want_to_fecth` acco
 
 <br/>
 
+### Note:
 - Using Twitter API requires [developer account](https://developer.twitter.com/en/apply-for-access) and
 there's a rate limit over Twitter API usage which is 900 per user and 1500 per app with a window length of 15 minutes. Find more [here](https://developer.twitter.com/en/docs/twitter-api/v1/rate-limits).
 - So, for personal usage kindly please fork this repo and set up your own server on herokuapp
