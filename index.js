@@ -4,7 +4,6 @@ require('dotenv').config()
 const request = require('request');
 const { createCanvas } = require('canvas')
 
-
 //error canvas
 const canvas1 = createCanvas(500,500)
 var ctx1 = canvas1.getContext('2d')
@@ -105,8 +104,12 @@ app.get('/', function (req, res) {
                                             // Add line break line number
                                             line_number = line_number+1
                                         }
-
-                                        res.send(canvas.toBuffer())
+                                        var img = canvas.toBuffer()
+                                        res.writeHead(200, {
+                                            'Content-Type': 'image/png',
+                                            'Content-Length': img.length
+                                        });
+                                        res.end(canvas.toBuffer())
                                     } else{
                                         return res.send(canvas1.toBuffer())
                                     }
