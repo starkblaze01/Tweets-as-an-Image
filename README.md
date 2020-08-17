@@ -21,6 +21,7 @@ Replace `your_twitter_handle_here` and `number_of_tweets_you_want_to_fecth` acco
 <br/>
 
 ### Note:
+- Retweets and comments are ignored.
 - Using Twitter API requires [developer account](https://developer.twitter.com/en/apply-for-access) and
 there's a rate limit over Twitter API usage which is 900 per user and 1500 per app with a window length of 15 minutes. Find more [here](https://developer.twitter.com/en/docs/twitter-api/v1/rate-limits).
 - So, for personal usage kindly please fork this repo and set up your own server on herokuapp
