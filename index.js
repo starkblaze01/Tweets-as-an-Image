@@ -111,26 +111,56 @@ app.get('/', function (req, res) {
                                         });
                                         res.end(canvas.toBuffer())
                                     } else{
-                                        return res.send(canvas1.toBuffer())
+                                        var img = canvas1.toBuffer()
+                                        res.writeHead(200, {
+                                            'Content-Type': 'image/png',
+                                            'Content-Length': img.length
+                                        });
+                                        return res.end(canvas1.toBuffer())
                                     }
                                 } else {
-                                    return res.send(canvas1.toBuffer())
+                                    var img = canvas1.toBuffer()
+                                    res.writeHead(200, {
+                                        'Content-Type': 'image/png',
+                                        'Content-Length': img.length
+                                    });
+                                    return res.end(canvas1.toBuffer())
                                 }
                             }) 
                     } else {
-                        return res.send(canvas1.toBuffer())
+                        var img = canvas1.toBuffer()
+                        res.writeHead(200, {
+                            'Content-Type': 'image/png',
+                            'Content-Length': img.length
+                        });
+                        return res.end(canvas1.toBuffer())
                     }
                 } else {
-                    return res.send(canvas1.toBuffer())            
+                    var img = canvas1.toBuffer()
+                    res.writeHead(200, {
+                        'Content-Type': 'image/png',
+                        'Content-Length': img.length
+                    });
+                    return res.end(canvas1.toBuffer())            
                 }
         })
     } else{
-        return res.send(canvas1.toBuffer())
+        var img = canvas1.toBuffer()
+        res.writeHead(200, {
+            'Content-Type': 'image/png',
+            'Content-Length': img.length
+        });
+        return res.end(canvas1.toBuffer())
     }
     }
     catch(err) {
         console.log(err)
-        return res.send(canvas1.toBuffer())
+        var img = canvas1.toBuffer()
+        res.writeHead(200, {
+            'Content-Type': 'image/png',
+            'Content-Length': img.length
+        });
+        return res.end(canvas1.toBuffer())
     }
 });
 const port = process.env.PORT || 8081
