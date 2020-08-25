@@ -7,9 +7,11 @@ _To get recent tweets as an image of any user_
 
 ---
 
-This project is created using [Canvas](https://www.npmjs.com/package/canvas) and [Twitter API](https://developer.twitter.com/en/docs)  for integration with [Github Profilinator](https://github.com/rishavanand/github-profilinator).
+This project is created using [Canvas](https://www.npmjs.com/package/canvas), [Puppeteer](https://github.com/puppeteer/puppeteer), and [Twitter API](https://developer.twitter.com/en/docs)  for integration with [Github Profilinator](https://github.com/rishavanand/github-profilinator).
 
 <br/>
+
+## Version 1:
 
 ### APIs available for use:
 
@@ -36,9 +38,13 @@ there's a rate limit over Twitter API usage which is 900 per user and 1500 per a
 6. :tada: Copy the deployed project and use it.(P.S. Don't forget to add twitter handle and count query at the end of url).
 
 
-### Sample Query Image:
+### Sample Query Response for v1:
 <img src="https://tweets-as-an-image.herokuapp.com/?twitterHandle=starkblaze01&count=1"/>
 
-### Future Work:
-- Make font and gradient customizable.
-- Better parsing of tweets' Text.
+## Version 2:
+
+:grin: Almost Done! Under Testing, details publishing soon! :sunglasses:
+
+### Sample Query Response of v2:
+
+<img src="https://tweets-as-an-image.herokuapp.com/tweet?twitterHandle=StarkBlaze01" />
