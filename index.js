@@ -3,6 +3,7 @@ var app = express();
 require('dotenv').config()
 const request = require('request');
 const { createCanvas } = require('canvas')
+const puppeteer = require('puppeteer');
 
 //error canvas
 const canvas1 = createCanvas(500,500)
@@ -163,6 +164,106 @@ app.get('/', function (req, res) {
         return res.end(canvas1.toBuffer())
     }
 });
+
+app.get('/tweet', async function (req, res) {
+    let count = 1
+    let twitterHandle = ''
+    let followers = 0
+    let following = 0
+
+    let baseURL = 'https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name='
+    let endURL = 'exclude_replies=true&include_rts=false'
+    let max_id = Infinity
+    let oembedBase = 'https://publish.twitter.com/oembed?url=https://twitter.com/'
+    let theme = 'dark'
+    let maxwidth = '550'
+    let lang = 'en'
+    let height = 700
+    let id = ''
+    try {
+        req.query.id ? (id = req.query.id) : id = ''
+        req.query.theme ? (theme = req.query.theme) : theme = 'dark'
+        req.query.maxwidth ? (maxwidth = req.query.maxwidth) : maxwidth = '550'
+        req.query.lang ? (lang = req.query.lang) : lang = 'en'
+        req.query.height ? (height = req.query.height) : height = 700
+        if (req.query.twitterHandle) {
+            twitterHandle = req.query.twitterHandle
+            if (req.query.count) {
+                count = req.query.count
+            }
+            let url = baseURL + twitterHandle + '&count=' + count.toString() + '&' + endURL
+            request(url, {
+                'auth': {
+                    'bearer': process.env.TWITTER_OAUTH_TOKEN
+                }
+            }, function (err, resp, body) {
+                if (resp.statusCode === 200) {
+                    let tweets = JSON.parse(resp.body)
+                    if (tweets.length !== 0) {
+                        // set params from first tweet, and get last tweet ID
+                        twitterHandle = tweets[0].user.screen_name
+                        followers = tweets[0].user.followers_count
+                        following = tweets[0].user.friends_count
+                        
+                        id ? max_id = id : max_id = tweets[0].id_str
+                        let oembedUrl = oembedBase + twitterHandle + '/status/' + max_id + '&theme=' + theme + '&align=center&lang=' + lang + '&maxwidth=' + maxwidth
+                        request(oembedUrl,
+                            async function (err, resp2, body) {
+                                const data = JSON.parse(resp2.body)
+                                const browser = await puppeteer.launch()
+                                const page = await browser.newPage()
+                                await page.setViewport({
+                                    width: parseInt(maxwidth) + 10,
+                                    height: parseInt(height)
+                                })
+                                await page.setContent(data.html, { waitUntil: 'networkidle0' })
+                                var img = await page.screenshot({ type: 'png' })
+                                await browser.close()
+                                res.writeHead(200, {
+                                    'Content-Type': 'image/png',
+                                    'Content-Length': img.length
+                                });
+                                res.end(img)
+                            })
+
+                    } else {
+                        var img = canvas1.toBuffer()
+                        res.writeHead(200, {
+                            'Content-Type': 'image/png',
+                            'Content-Length': img.length
+                        });
+                        return res.end(canvas1.toBuffer())
+                    }
+                } else {
+                    var img = canvas1.toBuffer()
+                    res.writeHead(200, {
+                        'Content-Type': 'image/png',
+                        'Content-Length': img.length
+                    });
+                    return res.end(canvas1.toBuffer())
+                }
+            })
+        } else {
+            var img = canvas1.toBuffer()
+            res.writeHead(200, {
+                'Content-Type': 'image/png',
+                'Content-Length': img.length
+            });
+            return res.end(canvas1.toBuffer())
+        }
+
+    } catch (err){
+        console.log(err)
+        var img = canvas1.toBuffer()
+        res.writeHead(200, {
+            'Content-Type': 'image/png',
+            'Content-Length': img.length
+        });
+        return res.end(canvas1.toBuffer())
+    }
+});
+
+
 const port = process.env.PORT || 8081
 
 var server = app.listen(port, function () {
