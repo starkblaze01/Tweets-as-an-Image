@@ -210,7 +210,7 @@ app.get('/tweet', async function (req, res) {
                         request(oembedUrl,
                             async function (err, resp2, body) {
                                 const data = JSON.parse(resp2.body)
-                                const browser = await puppeteer.launch()
+                                const browser = await puppeteer.launch({ args: ['--no-sandbox'] })
                                 const page = await browser.newPage()
                                 await page.setViewport({
                                     width: parseInt(maxwidth) + 10,
