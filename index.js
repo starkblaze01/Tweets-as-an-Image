@@ -5,6 +5,13 @@ const request = require('request');
 const { createCanvas } = require('canvas')
 const puppeteer = require('puppeteer');
 
+let browser;
+
+
+(async () => {
+    browser = await puppeteer.launch({ args: ['--no-sandbox'] })  
+})();
+
 //error canvas
 const canvas1 = createCanvas(500,500)
 var ctx1 = canvas1.getContext('2d')
@@ -165,11 +172,11 @@ app.get('/', function (req, res) {
     }
 });
 
+
+
 app.get('/tweet', async function (req, res) {
     let count = 1
     let twitterHandle = ''
-    let followers = 0
-    let following = 0
 
     let baseURL = 'https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name='
     let endURL = 'exclude_replies=true&include_rts=false'
@@ -202,40 +209,54 @@ app.get('/tweet', async function (req, res) {
                     if (tweets.length !== 0) {
                         // set params from first tweet, and get last tweet ID
                         twitterHandle = tweets[0].user.screen_name
-                        followers = tweets[0].user.followers_count
-                        following = tweets[0].user.friends_count
                         
                         id ? max_id = id : max_id = tweets[0].id_str
                         let oembedUrl = oembedBase + twitterHandle + '/status/' + max_id + '&theme=' + theme + '&align=center&lang=' + lang + '&maxwidth=' + maxwidth
                         request(oembedUrl,
                             async function (err, resp2, body) {
                                 const data = JSON.parse(resp2.body)
-                                const browser = await puppeteer.launch({ args: ['--no-sandbox'] })
-                                const page = await browser.newPage()
-                                await page.setViewport({
-                                    width: parseInt(maxwidth),
-                                    height: parseInt(height)
-                                })
-                                await page.setContent(data.html, { waitUntil: 'networkidle0' })
-                                let ele = await page.$('.twitter-tweet');
-                                const boundingBox = await ele.boundingBox();
-
-                                var img = await ele.screenshot({ type: 'png',
-                                    clip: {
-                                        x: boundingBox.x,
-                                        y: boundingBox.y,
-                                        width: Math.min(page.viewport().width, boundingBox.width),
-                                        height: Math.min(boundingBox.height, page.viewport().height),
+                                let page = ''
+                                try{
+                                    if(browser){
+                                        page = await browser.newPage()
+                                    } else {
+                                        browser = await puppeteer.launch({ args: ['--no-sandbox'] })
+                                        page = await browser.newPage()
                                     }
-                                })
-                                await browser.close()
-                                res.writeHead(200, {
-                                    'Content-Type': 'image/png',
-                                    'Content-Length': img.length
-                                });
-                                res.end(img)
-                            })
-
+                                    await page.setViewport({
+                                        width: parseInt(maxwidth),
+                                        height: parseInt(height)
+                                    })
+                                    await page.setContent(data.html, { waitUntil: 'networkidle0' })
+                                    let ele = await page.$('.twitter-tweet');
+                                    const boundingBox = await ele.boundingBox();
+                                
+                                    var img = await ele.screenshot({ type: 'png',
+                                        clip: {
+                                            x: boundingBox.x,
+                                            y: boundingBox.y,
+                                            width: Math.min(page.viewport().width, boundingBox.width),
+                                            height: Math.min(boundingBox.height, page.viewport().height),
+                                        }
+                                    })
+                                    await page.close()
+                                    res.writeHead(200, {
+                                        'Content-Type': 'image/png',
+                                        'Content-Length': img.length
+                                    });
+                                    res.end(img)
+                                } catch(err){
+                                    console.log(err)
+                                    var img = canvas1.toBuffer()
+                                    res.writeHead(200, {
+                                        'Content-Type': 'image/png',
+                                        'Content-Length': img.length
+                                    });
+                                    return res.end(canvas1.toBuffer())
+                                  }
+                                   
+                                })  
+                            
                     } else {
                         var img = canvas1.toBuffer()
                         res.writeHead(200, {
@@ -271,6 +292,7 @@ app.get('/tweet', async function (req, res) {
         });
         return res.end(canvas1.toBuffer())
     }
+    
 });
 
 
