@@ -43,8 +43,26 @@ there's a rate limit over Twitter API usage which is 900 per user and 1500 per a
 
 ## Version 2:
 
-:grin: Almost Done! Under Testing, details publishing soon! :sunglasses:
+### API available for use:
+ - `https://tweets-as-an-image.herokuapp.com/tweet?twitterHandle={your_twitter_handle}`
+ - `https://tweets-as-an-image.herokuapp.com/tweet?twitterHandle={your_twitter_handle}&id={your_tweet_id}&theme={light_or_dark}&maxwidth={max_width_of_your_tweet_image}&height={height_of_the_image}&lang={language}`
+ 
+ #### Optional Query Arguements:
+ - `id`(User's Tweet ID, Default: user's last tweet)
+ - `theme` (light or dark, Default: dark)
+ - `maxwidth` (maxWidth of your tweet image(+10px for border will be added), Default: 550)
+ - `height` (height of the image, Default: 700)
+ - `lang` (Languages Supported by twitter, check [here](https://developer.twitter.com/en/docs/twitter-for-websites/supported-languages), Default: en)
+ 
+ ### Note:
+ - This project is using oembed response of the tweets, and the height of the any tweets are not fixed, as there can be media content too, so it is not returned in the response. Read more about it [here](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-statuses-oembed).
+ - We are using [Puppeteer](https://github.com/puppeteer/puppeteer), a headless Chromium based browser to load the oembed response and take the screenshot of it.
+ - The Deployement part on heroku is same as the above one, but you need to add `puppeteer buildpack` in the deployement. You can know more about that [here](https://github.com/jontewks/puppeteer-heroku-buildpack)
 
 ### Sample Query Response of v2:
 
+#### Default Response:
 <img src="https://tweets-as-an-image.herokuapp.com/tweet?twitterHandle=StarkBlaze01" />
+
+#### Response with maxwidth set to 400, language to Spanish, and height to 300
+<img src="https://tweets-as-an-image.herokuapp.com/tweet?twitterHandle=StarkBlaze01&lang=es&maxwidth=400&height=300" />
