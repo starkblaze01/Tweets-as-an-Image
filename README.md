@@ -51,12 +51,12 @@ there's a rate limit over Twitter API usage which is 900 per user and 1500 per a
  - `id`(User's Tweet ID, Default: user's last tweet)
  - `theme` (light or dark, Default: dark)
  - `maxwidth` (maxWidth of your tweet image(+10px for border will be added), Default: 550)
- - `height` (height of the image, Default: 700)
+ - `height` (height of the image, Default: Min(2000, Height of your tweet))
  - `lang` (Languages Supported by twitter, check [here](https://developer.twitter.com/en/docs/twitter-for-websites/supported-languages), Default: en)
  
  ### Note:
- - This project is using oembed response of the tweets, and the height of the any tweets are not fixed, as there can be media content too, so it is not returned in the response. Read more about it [here](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-statuses-oembed). Please set it according to your tweet, default value is 700px.
- - We are using [Puppeteer](https://github.com/puppeteer/puppeteer), a headless Chromium based browser to load the oembed response and take the screenshot of it.
+ - This project is using oembed response of the tweets, and the height of the any tweets are not fixed, as there can be media content too, so it is not returned in the response. Read more about it [here](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-statuses-oembed). I am evaluating the height in the puppeteer itself, which is set to Minimum of 2000px and Height of Your Tweet. If you want to clip the part of the tweet, you can pass height as an optional query.
+ - I am using [Puppeteer](https://github.com/puppeteer/puppeteer), a headless Chromium based browser to load the oembed response and take the screenshot of it.
  - The Deployement part on heroku is same as the above one, but you need to add `puppeteer buildpack` in the deployement. You can know more about that [here](https://github.com/jontewks/puppeteer-heroku-buildpack)
 
 ### Sample Query Response of v2:
@@ -64,5 +64,8 @@ there's a rate limit over Twitter API usage which is 900 per user and 1500 per a
 #### Default Response:
 <img src="https://tweets-as-an-image.herokuapp.com/tweet?twitterHandle=StarkBlaze01" />
 
-#### Response with maxwidth set to 400, language to Spanish, and height to 300
-<img src="https://tweets-as-an-image.herokuapp.com/tweet?twitterHandle=StarkBlaze01&lang=es&maxwidth=400&height=300" />
+#### Response with maxwidth set to 400, language to Spanish
+<img src="https://tweets-as-an-image.herokuapp.com/tweet?twitterHandle=StarkBlaze01&lang=es&maxwidth=400" />
+
+
+Found a bug ? Create an issue [here](https://github.com/starkblaze01/Tweets-as-an-Image/issues/new)
