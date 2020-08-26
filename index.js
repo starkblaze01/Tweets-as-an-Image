@@ -178,14 +178,14 @@ app.get('/tweet', async function (req, res) {
     let theme = 'dark'
     let maxwidth = '550'
     let lang = 'en'
-    let height = 700
+    let height = 2000
     let id = ''
     try {
         req.query.id ? (id = req.query.id) : id = ''
         req.query.theme ? (theme = req.query.theme) : theme = 'dark'
         req.query.maxwidth ? (maxwidth = req.query.maxwidth) : maxwidth = '550'
         req.query.lang ? (lang = req.query.lang) : lang = 'en'
-        req.query.height ? (height = req.query.height) : height = 700
+        req.query.height ? (height = req.query.height) : height = 2000
         if (req.query.twitterHandle) {
             twitterHandle = req.query.twitterHandle
             if (req.query.count) {
@@ -213,11 +213,21 @@ app.get('/tweet', async function (req, res) {
                                 const browser = await puppeteer.launch({ args: ['--no-sandbox'] })
                                 const page = await browser.newPage()
                                 await page.setViewport({
-                                    width: parseInt(maxwidth) + 10,
+                                    width: parseInt(maxwidth),
                                     height: parseInt(height)
                                 })
                                 await page.setContent(data.html, { waitUntil: 'networkidle0' })
-                                var img = await page.screenshot({ type: 'png' })
+                                let ele = await page.$('.twitter-tweet');
+                                const boundingBox = await ele.boundingBox();
+
+                                var img = await ele.screenshot({ type: 'png',
+                                    clip: {
+                                        x: boundingBox.x,
+                                        y: boundingBox.y,
+                                        width: Math.min(page.viewport().width, boundingBox.width),
+                                        height: Math.min(boundingBox.height, page.viewport().height),
+                                    }
+                                })
                                 await browser.close()
                                 res.writeHead(200, {
                                     'Content-Type': 'image/png',
