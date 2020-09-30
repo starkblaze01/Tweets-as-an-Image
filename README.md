@@ -67,5 +67,6 @@ there's a rate limit over Twitter API usage which is 900 per user and 1500 per a
 #### Response with maxwidth set to 400, language to Spanish
 <img src="https://tweets-as-an-image.herokuapp.com/tweet?twitterHandle=StarkBlaze01&lang=es&maxwidth=400" />
 
+Liked the project? Hit the star button to support!
 
 Found a bug ? Create an issue [here](https://github.com/starkblaze01/Tweets-as-an-Image/issues/new)
