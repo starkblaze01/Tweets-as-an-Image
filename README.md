@@ -7,7 +7,8 @@ _To get recent tweets as an image of any user_
 
 ---
 
-This project is created using [Canvas](https://www.npmjs.com/package/canvas), [Puppeteer](https://github.com/puppeteer/puppeteer), and [Twitter API](https://developer.twitter.com/en/docs)  for integration with [Github Profilinator](https://github.com/rishavanand/github-profilinator).
+This project is created using [Canvas](https://www.npmjs.com/package/canvas), [Puppeteer](https://github.com/puppeteer/puppeteer), and [Twitter API](https://developer.twitter.com/en/docs), initially created  for integration with [Github Profilinator](https://github.com/rishavanand/github-profilinator)( P.S. You can use it anywhere you want to add your Tweets in Image format :wink: ).
+
 
 _Note: The Heroku Dyno might be in Sleep mode, so retry after a few minutes in case the API didn't respond on first call_
 
