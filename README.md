@@ -12,6 +12,16 @@ This project is created using [Canvas](https://www.npmjs.com/package/canvas), [P
 
 _Note: The Heroku Dyno might be in Sleep mode, so retry after a few minutes in case the API didn't respond on first call_
 
+
+
+## Blog
+
+<a href="https://dev.to/starkblaze01/tweets-as-an-image-5fmh" target="_blank">
+  <img src=https://img.shields.io/badge/dev.to-%2308090A.svg?&style=for-the-badge&logo=dev.to&logoColor=white alt=devto style="margin-bottom: 5px;" />
+</a>
+
+
+
 <br/>
 
 ## Version 1:
