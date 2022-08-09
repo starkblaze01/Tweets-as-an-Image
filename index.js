@@ -8,13 +8,8 @@ const redis = require("redis");
 let redisClient;
 
 (async () => {
-  redisClient = redis.createClient({
-    return_buffers: true,
-    detect_buffers: true,
-  });
-
+  redisClient = redis.createClient({ url: `redis://default:${process.env.REDIS_PASSWORD}@${process.env.REDIS_ENDPOINT_URI}` });
   redisClient.on("error", (error) => console.error(`Error : ${error}`));
-
   await redisClient.connect();
 })();
 
@@ -316,9 +311,9 @@ app.get("/tweet", async function (req, res) {
                       "Content-Length": img.length,
                     });
                     await redisClient.set(fullUrl, JSON.stringify(img), {
-                      EX: 172800,
+                      EX: 86400,
                       NX: true,
-                    }); // image buffer is cached on the redis client which expires in 48 hours
+                    }); // image buffer is cached on the redis client which expires in 24 hours
                     res.end(img);
                   } catch (err) {
                     console.log(err);
