@@ -8,9 +8,6 @@ const redis = require("redis");
 let redisClient;
 
 (async () => {
-  console.log(process.env.REDIS_PASSWORD)
-  console.log(process.env.REDIS_ENDPOINT_URI)
-  console.log(process.env.TWITTER_OAUTH_TOKEN)
   redisClient = redis.createClient({ url: `redis://default:${process.env.REDIS_PASSWORD}@${process.env.REDIS_ENDPOINT_URI}` });
   redisClient.on("error", (error) => console.error(`Error : ${error}`));
   await redisClient.connect();
@@ -245,7 +242,6 @@ app.get("/tweet", async function (req, res) {
         }
         let url =
           baseURL + twitterHandle + "&count=" + count.toString() + "&" + endURL;
-        console.log(url)
         request(
           url,
           {
