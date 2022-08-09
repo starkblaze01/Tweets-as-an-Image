@@ -316,7 +316,7 @@ app.get("/tweet", async function (req, res) {
                       "Content-Type": "image/png",
                       "Content-Length": img.length,
                     });
-                    await redisClient.set(fullUrl, JSON.stringify(img)); // image buffer is cached on the redis client
+                    await redisClient.setex(fullUrl, 172800, JSON.stringify(img)); // image buffer is cached on the redis client which expires in 48 hours
                     res.end(img);
                   } catch (err) {
                     console.log(err);
