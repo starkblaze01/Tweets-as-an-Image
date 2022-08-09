@@ -208,7 +208,7 @@ app.get("/", function (req, res) {
 app.get("/tweet", async function (req, res) {
   var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl; // gets full request url and checks if a cache exists on Redis
   const cacheResults = await redisClient.get(fullUrl);
-  if (cacheResults) {
+  if (false) {
     var cache_data = JSON.parse(cacheResults);
     var img = Buffer.from(cache_data.data); // if a cache exists we create an image buffer and send to the requester
     res.writeHead(200, {
@@ -245,6 +245,7 @@ app.get("/tweet", async function (req, res) {
         }
         let url =
           baseURL + twitterHandle + "&count=" + count.toString() + "&" + endURL;
+        console.log(url)
         request(
           url,
           {
@@ -253,6 +254,8 @@ app.get("/tweet", async function (req, res) {
             },
           },
           function (err, resp, body) {
+            console.log({ resp })
+            console.log(process.env.TWITTER_OAUTH_TOKEN)
             if (resp.statusCode === 200) {
               let tweets = JSON.parse(resp.body);
               if (tweets.length !== 0) {
