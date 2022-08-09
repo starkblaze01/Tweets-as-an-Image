@@ -209,11 +209,10 @@ app.get("/", function (req, res) {
 
 app.get("/tweet", async function (req, res) {
   var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl; // gets full request url and checks if a cache exists on Redis
-  const cacheResults = await redisClient.get(fullUrl); 
+  const cacheResults = await redisClient.get(fullUrl);
   if (cacheResults) {
     var cache_data = JSON.parse(cacheResults);
     var img = Buffer.from(cache_data.data); // if a cache exists we create an image buffer and send to the requester
-    console.log(img);
     res.writeHead(200, {
       "Content-Type": "image/png",
       "Content-Length": img.length,
@@ -316,7 +315,10 @@ app.get("/tweet", async function (req, res) {
                       "Content-Type": "image/png",
                       "Content-Length": img.length,
                     });
-                    await redisClient.setex(fullUrl, 172800, JSON.stringify(img)); // image buffer is cached on the redis client which expires in 48 hours
+                    await redisClient.set(fullUrl, JSON.stringify(img), {
+                      EX: 172800,
+                      NX: true,
+                    }); // image buffer is cached on the redis client which expires in 48 hours
                     res.end(img);
                   } catch (err) {
                     console.log(err);
